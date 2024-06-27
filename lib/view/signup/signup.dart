@@ -1,3 +1,4 @@
+import 'package:classassignment/main.dart';
 import 'package:classassignment/view/signin/signin.dart';
 import 'package:flutter/material.dart';
 
@@ -6,8 +7,9 @@ class signup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController passwordone = TextEditingController();
-    TextEditingController passwordtwo = TextEditingController();
+    TextEditingController email = TextEditingController();
+    TextEditingController password = TextEditingController();
+    TextEditingController confirmpassword = TextEditingController();
 
     GlobalKey<FormState> siginkey = GlobalKey();
     return Scaffold(
@@ -27,11 +29,12 @@ class signup extends StatelessWidget {
                     height: 20,
                   ),
                   TextFormField(
+                    controller: email,
                     validator: (value) {
                       if (value != null && value.contains("@")) {
                         return null;
                       } else {
-                        return "enter a proper mailid";
+                        return "enter a proper mail id";
                       }
                     },
                     decoration: InputDecoration(
@@ -45,12 +48,13 @@ class signup extends StatelessWidget {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: passwordone,
+                    obscureText: true,
+                    controller: password,
                     validator: (value) {
-                      if (value!.isEmpty || value.length < 6) {
-                        return "password must have 6 letters ";
-                      } else {
+                      if (value != null && value.length <= 6) {
                         return null;
+                      } else {
+                        return "password atleast  have 6 letter";
                       }
                     },
                     decoration: InputDecoration(
@@ -65,9 +69,10 @@ class signup extends StatelessWidget {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: passwordtwo,
+                    obscureText: true,
+                    controller: confirmpassword,
                     validator: (value) {
-                      if (passwordone.text == passwordtwo.text) {
+                      if (password.text == confirmpassword.text) {
                         return null;
                       } else {
                         return "Password that have entered not match";
@@ -93,14 +98,18 @@ class signup extends StatelessWidget {
                       child: ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor:
-                                MaterialStatePropertyAll(Colors.blue)),
+                                WidgetStatePropertyAll(Colors.blue)),
                         onPressed: () {
-                          if (siginkey.currentState!.validate())
-                            Navigator.push(
+                          if (siginkey.currentState!.validate()) {
+                            username == email.text;
+                            password == password.text;
+                            Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => signin(),
-                                ));
+                                ),
+                                (Route) => false);
+                          }
                         },
                         child: Text(
                           "Sign Up",

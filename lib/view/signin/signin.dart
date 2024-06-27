@@ -1,3 +1,4 @@
+import 'package:classassignment/main.dart';
 import 'package:classassignment/view/homescreen/homescreen.dart';
 import 'package:classassignment/view/signup/signup.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,9 @@ class signin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController userid = TextEditingController();
+    TextEditingController passid = TextEditingController();
+
     GlobalKey<FormState> siginkey = GlobalKey();
     return Scaffold(
       body: Container(
@@ -25,6 +29,7 @@ class signin extends StatelessWidget {
                   height: 20,
                 ),
                 TextFormField(
+                  controller: userid,
                   validator: (value) {
                     if (value != null && value.contains("@")) {
                       return null;
@@ -44,11 +49,13 @@ class signin extends StatelessWidget {
                   height: 20,
                 ),
                 TextFormField(
+                  controller: passid,
+                  obscureText: true,
                   validator: (value) {
-                    if (value!.isEmpty || value.length < 6) {
-                      return "password must have 6 letters";
-                    } else {
+                    if (value != null && value.length <= 6) {
                       return null;
+                    } else {
+                      return "password entered invalid";
                     }
                   },
                   decoration: InputDecoration(
@@ -84,15 +91,21 @@ class signin extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.blue)),
+                          backgroundColor: WidgetStatePropertyAll(Colors.blue)),
                       onPressed: () {
                         if (siginkey.currentState!.validate()) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => homescreen(),
-                              ));
+                          if (username == userid.text &&
+                              password == passid.text) {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => homescreen(),
+                                ),
+                                (Route) => false);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("invalid credential")));
+                          }
                         }
                       },
                       child: Text(
@@ -110,38 +123,20 @@ class signin extends StatelessWidget {
                         "Don't have an account?",
                         style: TextStyle(fontWeight: FontWeight.w400),
                       ),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => signup(),
-                                ));
-                          },
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => signin(),
-                                  ));
-                            },
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => signup(),
-                                    ));
-                              },
-                              child: Text(
-                                "Sign Up",
-                                style: TextStyle(
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                          ))
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => signup(),
+                              ));
+                        },
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(
+                              color: Colors.blue, fontWeight: FontWeight.w700),
+                        ),
+                      )
                     ],
                   ),
                 )

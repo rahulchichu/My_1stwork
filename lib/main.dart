@@ -1,7 +1,9 @@
-import 'package:classassignment/view/signup/signup.dart';
+import 'package:classassignment/view/signin/signin.dart';
 
 import 'package:flutter/material.dart';
 
+String? username = "";
+String? password = "";
 void main() {
   runApp(MyApp());
 }
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: signup(),
+      home: signin(),
     );
   }
 }
