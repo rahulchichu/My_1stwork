@@ -8,7 +8,7 @@ class signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController email = TextEditingController();
-    TextEditingController password = TextEditingController();
+    TextEditingController passs = TextEditingController();
     TextEditingController confirmpassword = TextEditingController();
 
     GlobalKey<FormState> siginkey = GlobalKey();
@@ -41,7 +41,12 @@ class signup extends StatelessWidget {
                         hintText: "Your Email Address",
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide:
+                                BorderSide(width: 2, color: Colors.red)),
                         focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
                             borderRadius: BorderRadius.circular(10))),
                   ),
                   SizedBox(
@@ -49,9 +54,9 @@ class signup extends StatelessWidget {
                   ),
                   TextFormField(
                     obscureText: true,
-                    controller: password,
+                    controller: passs,
                     validator: (value) {
-                      if (value != null && value.length <= 6) {
+                      if (value != null && value.length >= 6) {
                         return null;
                       } else {
                         return "password atleast  have 6 letter";
@@ -62,7 +67,12 @@ class signup extends StatelessWidget {
                         suffixIcon: Icon(Icons.visibility_off),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide:
+                                BorderSide(width: 2, color: Colors.red)),
                         focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
                             borderRadius: BorderRadius.circular(10))),
                   ),
                   SizedBox(
@@ -72,7 +82,7 @@ class signup extends StatelessWidget {
                     obscureText: true,
                     controller: confirmpassword,
                     validator: (value) {
-                      if (password.text == confirmpassword.text) {
+                      if (passs.text == confirmpassword.text) {
                         return null;
                       } else {
                         return "Password that have entered not match";
@@ -83,7 +93,12 @@ class signup extends StatelessWidget {
                         suffixIcon: Icon(Icons.visibility_off),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide:
+                                BorderSide(width: 2, color: Colors.red)),
                         focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
                             borderRadius: BorderRadius.circular(10))),
                   ),
                   SizedBox(
@@ -101,8 +116,8 @@ class signup extends StatelessWidget {
                                 WidgetStatePropertyAll(Colors.blue)),
                         onPressed: () {
                           if (siginkey.currentState!.validate()) {
-                            username == email.text;
-                            password == password.text;
+                            username = email.text;
+                            password = passs.text;
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
@@ -117,7 +132,7 @@ class signup extends StatelessWidget {
                         ),
                       )),
                   SizedBox(
-                    height: 320,
+                    height: 345,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),

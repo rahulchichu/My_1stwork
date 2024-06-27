@@ -41,7 +41,11 @@ class signin extends StatelessWidget {
                     hintText: "Your Email Address",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(width: 2, color: Colors.red)),
                     focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
                         borderRadius: BorderRadius.circular(10)),
                   ),
                 ),
@@ -52,7 +56,7 @@ class signin extends StatelessWidget {
                   controller: passid,
                   obscureText: true,
                   validator: (value) {
-                    if (value != null && value.length <= 6) {
+                    if (value != null && value.length >= 6) {
                       return null;
                     } else {
                       return "password entered invalid";
@@ -62,6 +66,12 @@ class signin extends StatelessWidget {
                     hintText: "Your Password",
                     suffixIcon: Icon(Icons.visibility_off),
                     border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(width: 2, color: Colors.red)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
                         borderRadius: BorderRadius.circular(10)),
                   ),
                 ),

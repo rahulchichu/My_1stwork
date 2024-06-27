@@ -2,8 +2,8 @@ import 'package:classassignment/view/signin/signin.dart';
 
 import 'package:flutter/material.dart';
 
-String? username = "";
-String? password = "";
+String? username = '';
+String? password = '';
 void main() {
   runApp(MyApp());
 }
